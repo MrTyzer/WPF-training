@@ -1,0 +1,30 @@
+﻿<Window x:Class="Dz_5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dz_5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <ListView x:Name="lvEmployee" HorizontalAlignment="Left" Height="200" Margin="10,56,0,0" VerticalAlignment="Top" Width="310" SelectionChanged="lvEmployee_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Width="20">Id</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="60">Имя</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Age}" Width="50">Возраст</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Salary}" Width="65">Зарплата</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Department}" Width="110">Департамент</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="lvDepartments" HorizontalAlignment="Left" Height="200" Margin="371,56,0,0" VerticalAlignment="Top" Width="136">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="130">Департаменты</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
