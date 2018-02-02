@@ -21,7 +21,10 @@ namespace Dz_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Employee> Workers = new ObservableCollection<Employee>();        ObservableCollection<Department> Departments = new ObservableCollection<Department>();        public MainWindow()
+        public ObservableCollection<Employee> Workers = new ObservableCollection<Employee>();
+        public ObservableCollection<Department> Departments = new ObservableCollection<Department>();
+
+        public MainWindow()
         {
             InitializeComponent();
             FillList();
@@ -37,7 +40,8 @@ namespace Dz_5
             Workers.Add(new Employee() { Id = 2, Name = "Петя", Age = 25, Salary = 6000, Department = Departments[1] });
             Workers.Add(new Employee() { Id = 3, Name = "Коля", Age = 23, Salary = 8000, Department = Departments[2] });
             lvEmployee.ItemsSource = Workers;
-        }
+        }
+
 
         public class Employee
         {
@@ -50,7 +54,8 @@ namespace Dz_5
             {
                 return $"{Id}\t{Name}\t{Age}\t{Salary}\t{Department}";
             }
-        }
+        }
+
         public class Department
         {
             public string Name { get; set; }
@@ -63,7 +68,46 @@ namespace Dz_5
 
         private void lvEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Window win = new Window();
+            IsEnabled = false;
+            Employee worker;
+            if (e.AddedItems[0] is Employee)
+            {
+                worker = e.AddedItems[0] as Employee;
+                Editor childWindow = new Editor();
+                childWindow.Owner = this;
+                childWindow.Closing += Enable;
+                childWindow.Show();
+                childWindow.Activate();
+                childWindow.Worker = worker;
+                childWindow.label.Content = worker.Id;
+                childWindow.textBox1.Text = worker.Name;
+                childWindow.textBox2.Text = worker.Age.ToString();
+                childWindow.textBox3.Text = worker.Salary.ToString();
+                childWindow.comboBox.ItemsSource = Departments;
+                childWindow.comboBox.SelectedItem = worker.Department;
+            }
+        }
+
+        private void lvDepartments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IsEnabled = false;
+            Department department;
+            if (e.AddedItems[0] is Department)
+            {
+                department = e.AddedItems[0] as Department;
+                Editor2 childWindow = new Editor2();
+                childWindow.Closing += Enable;
+                childWindow.Owner = this;
+                childWindow.Show();
+                childWindow.Activate();
+                childWindow.Department = department;
+                childWindow.textBox.Text = department.Name;
+            }
+        }
+
+        public void Enable(object sender, EventArgs e)
+        {
+            IsEnabled = true;
         }
     }
 }
