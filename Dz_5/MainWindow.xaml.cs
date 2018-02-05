@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace Dz_5
 {
@@ -43,23 +45,108 @@ namespace Dz_5
         }
 
 
-        public class Employee
+        public class Employee : INotifyPropertyChanged
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public int Age { get; set; }
-            public double Salary { get; set; }
-            public Department Department { get; set; }
+            private int id;
+            public int Id
+            {
+                get { return id; }
+                set
+                {
+                    if (id != value)
+                    {
+                        id = value;
+                        NotifyPropertyChanged("Id");
+                    }
+                }
+            }
+            private string name;
+            public string Name
+            {
+                get { return name; }
+                set
+                {
+                    if (name != value)
+                    {
+                        name = value;
+                        NotifyPropertyChanged("Name");
+                    }
+                }
+            }
+            private int age;
+            public int Age
+            {
+                get { return age; }
+                set
+                {
+                    if (age != value)
+                    {
+                        age = value;
+                        NotifyPropertyChanged("Age");
+                    }
+                }
+            }
+            private double salary;
+            public double Salary
+            {
+                get { return salary; }
+                set
+                {
+                    if (salary != value)
+                    {
+                        salary = value;
+                        NotifyPropertyChanged("Salary");
+                    }
+                }
+            }
+            private Department department;
+            public Department Department
+            {
+                get { return department; }
+                set
+                {
+                    if (department != value)
+                    {
+                        department = value;
+                        NotifyPropertyChanged("Department");
+                    }
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void NotifyPropertyChanged(string propName)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+
             public override string ToString()
             {
                 return $"{Id}\t{Name}\t{Age}\t{Salary}\t{Department}";
             }
         }
 
-        public class Department
+        public class Department : INotifyPropertyChanged
         {
-            public string Name { get; set; }
-
+            private string name;
+            public string Name
+            {
+                get { return name; }
+                set
+                {
+                    if (name != value)
+                    {
+                        name = value;
+                        NotifyPropertyChanged("Name");
+                    }
+                }
+            }
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void NotifyPropertyChanged(string propName)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
             public override string ToString()
             {
                 return $"{Name}";
@@ -79,12 +166,12 @@ namespace Dz_5
                 childWindow.Show();
                 childWindow.Activate();
                 childWindow.Worker = worker;
-                childWindow.label.Content = worker.Id;
-                childWindow.textBox1.Text = worker.Name;
-                childWindow.textBox2.Text = worker.Age.ToString();
-                childWindow.textBox3.Text = worker.Salary.ToString();
-                childWindow.comboBox.ItemsSource = Departments;
-                childWindow.comboBox.SelectedItem = worker.Department;
+                childWindow.lId.Content = worker.Id;
+                childWindow.tbName.Text = worker.Name;
+                childWindow.tbAge.Text = worker.Age.ToString();
+                childWindow.tbSalary.Text = worker.Salary.ToString();
+                childWindow.cbDepartment.ItemsSource = Departments;
+                childWindow.cbDepartment.SelectedItem = worker.Department;
             }
         }
 
@@ -101,7 +188,7 @@ namespace Dz_5
                 childWindow.Show();
                 childWindow.Activate();
                 childWindow.Department = department;
-                childWindow.textBox.Text = department.Name;
+                childWindow.tbName.Text = department.Name;
             }
         }
 
@@ -109,5 +196,6 @@ namespace Dz_5
         {
             IsEnabled = true;
         }
+
     }
 }

@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Editor2" Height="150" Width="300">
     <Grid>
-        <TextBox x:Name="textBox" Height="23" Margin="90,41,60,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="Выход" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Изменить" HorizontalAlignment="Left" Margin="207,88,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Label x:Name="label" Content="Департамент" Margin="90,10,90,0" VerticalAlignment="Top"/>
-        <Button x:Name="button2" Content="Создать" HorizontalAlignment="Left" Margin="107,88,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <TextBox x:Name="tbName" Height="23" Margin="90,41,60,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <Button x:Name="bExit" Content="Выход" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="bChange" Content="Изменить" HorizontalAlignment="Left" Margin="207,88,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Label x:Name="lDepartment" Content="Департамент" Margin="90,10,90,0" VerticalAlignment="Top"/>
+        <Button x:Name="bCreate" Content="Создать" HorizontalAlignment="Left" Margin="107,88,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
 
     </Grid>
 </Window>

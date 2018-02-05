@@ -35,8 +35,7 @@ namespace Dz_5
             if (Owner is MainWindow)
             {
                 MainWindow Mwin = Owner as MainWindow;
-                Department.Name = textBox.Text;
-                Mwin.lvDepartments.Items.Refresh();
+                Department.Name = tbName.Text;
             }
 
             Close();
@@ -48,9 +47,8 @@ namespace Dz_5
             {
                 MainWindow Mwin = Owner as MainWindow;
                 MainWindow.Department department = new MainWindow.Department();
-                department.Name = textBox.Text;
+                department.Name = tbName.Text;
                 Mwin.Departments.Add(department);
-                Mwin.lvDepartments.Items.Refresh();
             }
 
             Close();

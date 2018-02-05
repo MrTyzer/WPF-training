@@ -36,7 +36,6 @@ namespace Dz_5
             {
                 MainWindow Mwin = Owner as MainWindow;
                 GetInformation(Worker);
-                Mwin.lvEmployee.Items.Refresh();
             }
 
             Close();
@@ -51,7 +50,6 @@ namespace Dz_5
                 GetInformation(worker);
                 worker.Id = Mwin.Workers.Count + 1;
                 Mwin.Workers.Add(worker);
-                Mwin.lvEmployee.Items.Refresh();
             }
 
             Close();
@@ -59,10 +57,16 @@ namespace Dz_5
 
         private void GetInformation(MainWindow.Employee worker)
         {
-            worker.Name = textBox1.Text;
-            worker.Age = Convert.ToInt32(textBox2.Text);
-            worker.Salary = Convert.ToInt32(textBox3.Text);
-            worker.Department = comboBox.SelectedItem as MainWindow.Department;
+            worker.Name = tbName.Text;
+            int age;
+            bool try1 = int.TryParse(tbAge.Text, out age);
+            if (try1)
+                worker.Age = age;
+            double salary;
+            bool try2 = double.TryParse(tbSalary.Text, out salary);
+            if (try2)
+                worker.Salary = salary; 
+            worker.Department = cbDepartment.SelectedItem as MainWindow.Department;
         }
     }
 }

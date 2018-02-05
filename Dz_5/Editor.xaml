@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="Editor" Height="250" Width="300">
     <Grid>
-        <TextBox x:Name="textBox1" Height="23" Margin="86,31,86,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="86,59,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="86,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label" Content="Label" Margin="127,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" Margin="72,115,72,0" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="Выйти" HorizontalAlignment="Left" Margin="0,188,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Изменить" HorizontalAlignment="Left" Margin="207,188,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Создать" HorizontalAlignment="Left" Margin="104,188,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <TextBox x:Name="tbName" Height="23" Margin="86,31,86,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbAge" HorizontalAlignment="Left" Height="23" Margin="86,59,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbSalary" HorizontalAlignment="Left" Height="23" Margin="86,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lId" Content="Label" Margin="127,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbDepartment" Margin="72,115,72,0" VerticalAlignment="Top"/>
+        <Button x:Name="bExit" Content="Выйти" HorizontalAlignment="Left" Margin="0,188,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="bChange" Content="Изменить" HorizontalAlignment="Left" Margin="207,188,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="bCreate" Content="Создать" HorizontalAlignment="Left" Margin="104,188,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
 
     </Grid>
 </Window>
