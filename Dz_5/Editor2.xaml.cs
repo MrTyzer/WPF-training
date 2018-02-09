@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,10 @@ namespace Dz_5
     /// </summary>
     public partial class Editor2 : Window
     {
-        public MainWindow.Department Department { get; set; }
-        public Editor2()
+        public Editor2(DataRow row)
         {
             InitializeComponent();
+            tbName.Text = row["Name"].ToString();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -32,25 +33,11 @@ namespace Dz_5
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            if (Owner is MainWindow)
-            {
-                MainWindow Mwin = Owner as MainWindow;
-                Department.Name = tbName.Text;
-            }
-
             Close();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            if (Owner is MainWindow)
-            {
-                MainWindow Mwin = Owner as MainWindow;
-                MainWindow.Department department = new MainWindow.Department();
-                department.Name = tbName.Text;
-                Mwin.Departments.Add(department);
-            }
-
             Close();
         }
     }

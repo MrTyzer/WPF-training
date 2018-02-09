@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,15 @@ namespace Dz_5
     /// Логика взаимодействия для Editor.xaml
     /// </summary>
     public partial class Editor : Window
-    {
-        public MainWindow.Employee Worker { get; set; }
-        public Editor()
+    {        public DataRow resultRow { get; set; }        public Editor(DataRow row)
         {
             InitializeComponent();
+            lId.Content = row["Id"].ToString();
+            tbName.Text = row["Name"].ToString();
+            tbAge.Text = row["Age"].ToString();
+            tbSalary.Text = row["Salary"].ToString();
+            tbDepartment.Text = row["Department"].ToString();
+            resultRow = row;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -32,41 +37,20 @@ namespace Dz_5
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            if (Owner is MainWindow)
-            {
-                MainWindow Mwin = Owner as MainWindow;
-                GetInformation(Worker);
-            }
-
+            resultRow["Id"] = lId.Content;
+            resultRow["Name"] = tbName.Text;
+            resultRow["Age"] = tbAge.Text;
+            resultRow["Salary"] = tbSalary.Text;
+            resultRow["Department"] = tbDepartment.Text;
+            MainWindow Mwin = Owner as MainWindow;
+            Mwin.NewRow.EndEdit();
+            Mwin.AdapterEmp.Update(Mwin.EmployeeTable);
             Close();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            if (Owner is MainWindow)
-            {
-                MainWindow Mwin = Owner as MainWindow;
-                MainWindow.Employee worker = new MainWindow.Employee();
-                GetInformation(worker);
-                worker.Id = Mwin.Workers.Count + 1;
-                Mwin.Workers.Add(worker);
-            }
-
             Close();
-        }
-
-        private void GetInformation(MainWindow.Employee worker)
-        {
-            worker.Name = tbName.Text;
-            int age;
-            bool try1 = int.TryParse(tbAge.Text, out age);
-            if (try1)
-                worker.Age = age;
-            double salary;
-            bool try2 = double.TryParse(tbSalary.Text, out salary);
-            if (try2)
-                worker.Salary = salary; 
-            worker.Department = cbDepartment.SelectedItem as MainWindow.Department;
         }
     }
 }

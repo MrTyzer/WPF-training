@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Dz_5
 {
@@ -23,179 +25,106 @@ namespace Dz_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Employee> Workers = new ObservableCollection<Employee>();
-        public ObservableCollection<Department> Departments = new ObservableCollection<Department>();
+        private SqlConnection _connectionEmp;
+        private SqlConnection _connectionDep;
+        public SqlDataAdapter AdapterEmp;
+        public SqlDataAdapter AdapterDep;
+        public DataTable EmployeeTable;
+        public DataTable DepatmentTable;
+        public DataRowView NewRow;
 
         public MainWindow()
         {
             InitializeComponent();
-            FillList();
+            EmployeeInit();
+            DepartmentInit();
+        }
+        
+        private void DepartmentInit()
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Dz_7;Integrated Security=True";
+            _connectionDep = new SqlConnection(connectionString);
+            AdapterDep = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand(@"SELECT ID, Name FROM
+                                                Department", _connectionDep);
+            AdapterDep.SelectCommand = command;
+            //insert
+            command = new SqlCommand(@"INSERT INTO Department (Name)
+                                     VALUES (@Name); SET @ID = @@IDENTITY;", _connectionDep);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
+            SqlParameter param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.Direction = ParameterDirection.Output;
+            AdapterDep.InsertCommand = command;
+            // update
+            command = new SqlCommand(@"UPDATE Department SET Name = @Name, 
+                                     WHERE ID = @ID", _connectionDep);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
+            param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.SourceVersion = DataRowVersion.Original;
+            AdapterDep.UpdateCommand = command;
+            //delete
+            command = new SqlCommand("DELETE FROM Department WHERE ID = @ID", _connectionDep);
+            param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.SourceVersion = DataRowVersion.Original;
+            AdapterDep.DeleteCommand = command;
+            DepatmentTable = new DataTable();
+            AdapterDep.Fill(DepatmentTable);
+            dgDepartment.DataContext = DepatmentTable.DefaultView;
         }
 
-        void FillList()
+        private void EmployeeInit()
         {
-            Departments.Add(new Department() {  Name = "Образования" });
-            Departments.Add(new Department() {  Name = "Здравоохранения" });
-            Departments.Add(new Department() {  Name = "Транспорта" });
-            lvDepartments.ItemsSource = Departments;
-            Workers.Add(new Employee() { Id = 1, Name = "Вася", Age = 22, Salary = 3000, Department = Departments[0] });
-            Workers.Add(new Employee() { Id = 2, Name = "Петя", Age = 25, Salary = 6000, Department = Departments[1] });
-            Workers.Add(new Employee() { Id = 3, Name = "Коля", Age = 23, Salary = 8000, Department = Departments[2] });
-            lvEmployee.ItemsSource = Workers;
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Dz_7;Integrated Security=True";
+            _connectionEmp = new SqlConnection(connectionString);
+            AdapterEmp = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand(@"SELECT ID, Name, Age, Salary, Department FROM
+                                                Employee", _connectionEmp);
+            AdapterEmp.SelectCommand = command;
+            //insert
+            command = new SqlCommand(@"INSERT INTO Employee (Name, Age, Salary, Department)
+                                     VALUES (@Name, @Age, @Salary, @Department); SET @ID = @@IDENTITY;", _connectionEmp);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
+            command.Parameters.Add("@Age", SqlDbType.NVarChar, -1, "Age");
+            command.Parameters.Add("@Salary", SqlDbType.NVarChar, -1, "Salary");
+            command.Parameters.Add("@Department", SqlDbType.NVarChar, -1, "Department");
+            SqlParameter param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.Direction = ParameterDirection.Output;
+            AdapterEmp.InsertCommand = command;
+            // update
+            command = new SqlCommand(@"UPDATE Employee SET Name = @Name, Age = @Age,
+                                     Salary = @Salary, Department = @Department WHERE ID = @ID", _connectionEmp);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
+            command.Parameters.Add("@Age", SqlDbType.NVarChar, -1, "Age");
+            command.Parameters.Add("@Salary", SqlDbType.NVarChar, -1, "Salary");
+            command.Parameters.Add("@Department", SqlDbType.NVarChar, -1, "Department");
+            param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.SourceVersion = DataRowVersion.Original;
+            AdapterEmp.UpdateCommand = command;
+            //delete
+            command = new SqlCommand("DELETE FROM Employee WHERE ID = @ID", _connectionEmp);
+            param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
+            param.SourceVersion = DataRowVersion.Original;
+            AdapterEmp.DeleteCommand = command;
+            EmployeeTable = new DataTable();
+            AdapterEmp.Fill(EmployeeTable);
+            dgEmployee.DataContext = EmployeeTable.DefaultView;
         }
 
-
-        public class Employee : INotifyPropertyChanged
+        
+        private void dgEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            private int id;
-            public int Id
-            {
-                get { return id; }
-                set
-                {
-                    if (id != value)
-                    {
-                        id = value;
-                        NotifyPropertyChanged("Id");
-                    }
-                }
-            }
-            private string name;
-            public string Name
-            {
-                get { return name; }
-                set
-                {
-                    if (name != value)
-                    {
-                        name = value;
-                        NotifyPropertyChanged("Name");
-                    }
-                }
-            }
-            private int age;
-            public int Age
-            {
-                get { return age; }
-                set
-                {
-                    if (age != value)
-                    {
-                        age = value;
-                        NotifyPropertyChanged("Age");
-                    }
-                }
-            }
-            private double salary;
-            public double Salary
-            {
-                get { return salary; }
-                set
-                {
-                    if (salary != value)
-                    {
-                        salary = value;
-                        NotifyPropertyChanged("Salary");
-                    }
-                }
-            }
-            private Department department;
-            public Department Department
-            {
-                get { return department; }
-                set
-                {
-                    if (department != value)
-                    {
-                        department = value;
-                        NotifyPropertyChanged("Department");
-                    }
-                }
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void NotifyPropertyChanged(string propName)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-
-            public override string ToString()
-            {
-                return $"{Id}\t{Name}\t{Age}\t{Salary}\t{Department}";
-            }
-        }
-
-        public class Department : INotifyPropertyChanged
-        {
-            private string name;
-            public string Name
-            {
-                get { return name; }
-                set
-                {
-                    if (name != value)
-                    {
-                        name = value;
-                        NotifyPropertyChanged("Name");
-                    }
-                }
-            }
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void NotifyPropertyChanged(string propName)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-            public override string ToString()
-            {
-                return $"{Name}";
-            }
-        }
-
-        private void lvEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            IsEnabled = false;
-            Employee worker;
-            if (e.AddedItems[0] is Employee)
-            {
-                worker = e.AddedItems[0] as Employee;
-                Editor childWindow = new Editor();
-                childWindow.Owner = this;
-                childWindow.Closing += Enable;
-                childWindow.Show();
-                childWindow.Activate();
-                childWindow.Worker = worker;
-                childWindow.lId.Content = worker.Id;
-                childWindow.tbName.Text = worker.Name;
-                childWindow.tbAge.Text = worker.Age.ToString();
-                childWindow.tbSalary.Text = worker.Salary.ToString();
-                childWindow.cbDepartment.ItemsSource = Departments;
-                childWindow.cbDepartment.SelectedItem = worker.Department;
-            }
-        }
-
-        private void lvDepartments_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            IsEnabled = false;
-            Department department;
-            if (e.AddedItems[0] is Department)
-            {
-                department = e.AddedItems[0] as Department;
-                Editor2 childWindow = new Editor2();
-                childWindow.Closing += Enable;
-                childWindow.Owner = this;
-                childWindow.Show();
-                childWindow.Activate();
-                childWindow.Department = department;
-                childWindow.tbName.Text = department.Name;
-            }
+            NewRow = (DataRowView)dgEmployee.SelectedItem;
+            NewRow.BeginEdit();
+            Editor childWindow = new Editor(NewRow.Row);
+            childWindow.Owner = this;
+            childWindow.Closing += Enable;
+            childWindow.Show();
+            childWindow.Activate();
         }
 
         public void Enable(object sender, EventArgs e)
         {
             IsEnabled = true;
         }
-
     }
 }
