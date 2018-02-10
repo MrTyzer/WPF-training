@@ -19,9 +19,14 @@ namespace Dz_5
     /// Логика взаимодействия для Editor.xaml
     /// </summary>
     public partial class Editor : Window
-    {        public DataRow resultRow { get; set; }        public Editor(DataRow row)
+    {
+        public DataRow resultRow { get; set; }
+        public MainWindow Mwin { get; set; }
+
+        public Editor(DataRow row, MainWindow mwin)
         {
             InitializeComponent();
+            Mwin = mwin;
             lId.Content = row["Id"].ToString();
             tbName.Text = row["Name"].ToString();
             tbAge.Text = row["Age"].ToString();
@@ -30,26 +35,42 @@ namespace Dz_5
             resultRow = row;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
             resultRow["Id"] = lId.Content;
             resultRow["Name"] = tbName.Text;
             resultRow["Age"] = tbAge.Text;
             resultRow["Salary"] = tbSalary.Text;
             resultRow["Department"] = tbDepartment.Text;
-            MainWindow Mwin = Owner as MainWindow;
             Mwin.NewRow.EndEdit();
             Mwin.AdapterEmp.Update(Mwin.EmployeeTable);
             Close();
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void Button2_Click(object sender, RoutedEventArgs e)
         {
+            Mwin.NewRow.EndEdit();
+            DataRow newRow = Mwin.EmployeeTable.NewRow();
+            newRow["Id"] = lId.Content;
+            newRow["Name"] = tbName.Text;
+            newRow["Age"] = tbAge.Text;
+            newRow["Salary"] = tbSalary.Text;
+            newRow["Department"] = tbDepartment.Text;
+            Mwin.EmployeeTable.Rows.Add(newRow);
+            Mwin.AdapterEmp.Update(Mwin.EmployeeTable);
+            Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Mwin.NewRow.EndEdit();
+            Mwin.NewRow.Row.Delete();
+            Mwin.AdapterDep.Update(Mwin.EmployeeTable);
             Close();
         }
     }

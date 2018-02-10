@@ -16,7 +16,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections.Specialized;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient;
+
 
 namespace Dz_5
 {
@@ -30,7 +31,7 @@ namespace Dz_5
         public SqlDataAdapter AdapterEmp;
         public SqlDataAdapter AdapterDep;
         public DataTable EmployeeTable;
-        public DataTable DepatmentTable;
+        public DataTable DepartmentTable;
         public DataRowView NewRow;
 
         public MainWindow()
@@ -67,9 +68,9 @@ namespace Dz_5
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.SourceVersion = DataRowVersion.Original;
             AdapterDep.DeleteCommand = command;
-            DepatmentTable = new DataTable();
-            AdapterDep.Fill(DepatmentTable);
-            dgDepartment.DataContext = DepatmentTable.DefaultView;
+            DepartmentTable = new DataTable();
+            AdapterDep.Fill(DepartmentTable);
+            dgDepartment.DataContext = DepartmentTable.DefaultView;
         }
 
         private void EmployeeInit()
@@ -113,10 +114,21 @@ namespace Dz_5
         
         private void dgEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            IsEnabled = false;
             NewRow = (DataRowView)dgEmployee.SelectedItem;
             NewRow.BeginEdit();
-            Editor childWindow = new Editor(NewRow.Row);
-            childWindow.Owner = this;
+            Editor childWindow = new Editor(NewRow.Row, this);
+            childWindow.Closing += Enable;
+            childWindow.Show();
+            childWindow.Activate();
+        }
+
+        private void dgDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IsEnabled = false;
+            NewRow = (DataRowView)dgDepartment.SelectedItem;
+            NewRow.BeginEdit();
+            Editor2 childWindow = new Editor2(NewRow.Row, this);
             childWindow.Closing += Enable;
             childWindow.Show();
             childWindow.Activate();

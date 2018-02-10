@@ -20,24 +20,45 @@ namespace Dz_5
     /// </summary>
     public partial class Editor2 : Window
     {
-        public Editor2(DataRow row)
+        public DataRow resultRow { get; set; }
+        public MainWindow Mwin { get; set; }
+
+        public Editor2(DataRow row, MainWindow mwin)
         {
             InitializeComponent();
+            Mwin = mwin;
             tbName.Text = row["Name"].ToString();
+            resultRow = row;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
+            resultRow["Name"] = tbName.Text;
+            Mwin.NewRow.EndEdit();
+            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
             Close();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
+            Mwin.NewRow.EndEdit();
+            DataRow newRow = Mwin.DepartmentTable.NewRow();
+            newRow["Name"] = tbName.Text;
+            Mwin.DepartmentTable.Rows.Add(newRow);
+            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
+            Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Mwin.NewRow.EndEdit();
+            Mwin.NewRow.Row.Delete();
+            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
             Close();
         }
     }

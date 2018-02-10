@@ -5,4 +5,4 @@
 [Salary] NVARCHAR(MAX) NULL,
 [Department] NVARCHAR(MAX) NULL,
 CONSTRAINT[PK_dbo.Employee] PRIMARY KEY CLUSTERED([Id] ASC)
-);
+);

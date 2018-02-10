@@ -8,10 +8,11 @@
         Title="Editor2" Height="150" Width="300">
     <Grid>
         <TextBox x:Name="tbName" Height="23" Margin="90,41,60,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <Button x:Name="bExit" Content="Выход" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="bChange" Content="Изменить" HorizontalAlignment="Left" Margin="207,88,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="bExit" Content="Выход" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click"/>
+        <Button x:Name="bChange" Content="Изменить" HorizontalAlignment="Left" Margin="221,88,0,0" VerticalAlignment="Top" Width="61" Click="Button1_Click"/>
         <Label x:Name="lDepartment" Content="Департамент" Margin="90,10,90,0" VerticalAlignment="Top"/>
-        <Button x:Name="bCreate" Content="Создать" HorizontalAlignment="Left" Margin="107,88,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <Button x:Name="bCreate" Content="Создать" HorizontalAlignment="Left" Margin="145,88,0,0" VerticalAlignment="Top" Width="60" Click="button2_Click"/>
+        <Button x:Name="bDelete" Content="Удалить" HorizontalAlignment="Left" Margin="80,88,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click_2"/>
 
     </Grid>
 </Window>
