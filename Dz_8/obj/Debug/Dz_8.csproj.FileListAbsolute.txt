@@ -1,0 +1,7 @@
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\obj\Debug\Dz_8.csprojResolveAssemblyReference.cache
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\obj\Debug\Dz_8.csproj.CoreCompileInputs.cache
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\bin\Dz_8.dll.config
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\bin\Dz_8.dll
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\bin\Dz_8.pdb
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\obj\Debug\Dz_8.dll
+D:\Docs\Visual Studio 2017\Projects\WpfTraining\Dz_8\obj\Debug\Dz_8.pdb

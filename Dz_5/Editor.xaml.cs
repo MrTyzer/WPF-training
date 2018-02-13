@@ -48,21 +48,22 @@ namespace Dz_5
             resultRow["Salary"] = tbSalary.Text;
             resultRow["Department"] = tbDepartment.Text;
             Mwin.NewRow.EndEdit();
-            Mwin.AdapterEmp.Update(Mwin.EmployeeTable);
+            DbInteractionNamespace.DataTables packet = new DbInteractionNamespace.DataTables();
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             Mwin.NewRow.EndEdit();
-            DataRow newRow = Mwin.EmployeeTable.NewRow();
+            DataRow newRow = Mwin.Tables.EmpTable.NewRow();
             newRow["Id"] = lId.Content;
             newRow["Name"] = tbName.Text;
             newRow["Age"] = tbAge.Text;
             newRow["Salary"] = tbSalary.Text;
             newRow["Department"] = tbDepartment.Text;
-            Mwin.EmployeeTable.Rows.Add(newRow);
-            Mwin.AdapterEmp.Update(Mwin.EmployeeTable);
+            Mwin.Tables.EmpTable.Rows.Add(newRow);
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
 
@@ -70,7 +71,7 @@ namespace Dz_5
         {
             Mwin.NewRow.EndEdit();
             Mwin.NewRow.Row.Delete();
-            Mwin.AdapterDep.Update(Mwin.EmployeeTable);
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
     }

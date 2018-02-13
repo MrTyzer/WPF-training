@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +73,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Connected Services\DbInteractionNamespace\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
@@ -100,6 +107,23 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction.wsdl" />
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DbInteractionNamespace\Dz_5.DbInteractionNamespace.DataTables.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -108,6 +132,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\DbInteractionNamespace\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DbInteractionNamespace\DbInteraction.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DbInteractionNamespace\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DbInteractionNamespace\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DbInteractionNamespace\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

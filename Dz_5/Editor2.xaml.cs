@@ -40,17 +40,17 @@ namespace Dz_5
         {
             resultRow["Name"] = tbName.Text;
             Mwin.NewRow.EndEdit();
-            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             Mwin.NewRow.EndEdit();
-            DataRow newRow = Mwin.DepartmentTable.NewRow();
+            DataRow newRow = Mwin.Tables.DepTable.NewRow();
             newRow["Name"] = tbName.Text;
-            Mwin.DepartmentTable.Rows.Add(newRow);
-            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
+            Mwin.Tables.DepTable.Rows.Add(newRow);
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
 
@@ -58,7 +58,7 @@ namespace Dz_5
         {
             Mwin.NewRow.EndEdit();
             Mwin.NewRow.Row.Delete();
-            Mwin.AdapterDep.Update(Mwin.DepartmentTable);
+            Mwin.InteractionService.Update(Mwin.Tables);
             Close();
         }
     }

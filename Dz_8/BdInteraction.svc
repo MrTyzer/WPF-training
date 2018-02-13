@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Dz_8.Service1" CodeBehind="BdInteraction.svc.cs" %>
