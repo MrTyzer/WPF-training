@@ -57,7 +57,7 @@ namespace Dz_5
         {
             Mwin.NewRow.EndEdit();
             DataRow newRow = Mwin.Tables.EmpTable.NewRow();
-            newRow["Id"] = lId.Content;
+            newRow["Id"] = Mwin.Tables.EmpTable.Rows.Count + 1;
             newRow["Name"] = tbName.Text;
             newRow["Age"] = tbAge.Text;
             newRow["Salary"] = tbSalary.Text;

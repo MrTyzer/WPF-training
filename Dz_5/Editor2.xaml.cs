@@ -48,6 +48,7 @@ namespace Dz_5
         {
             Mwin.NewRow.EndEdit();
             DataRow newRow = Mwin.Tables.DepTable.NewRow();
+            newRow["Id"] = Mwin.Tables.DepTable.Rows.Count + 1;
             newRow["Name"] = tbName.Text;
             Mwin.Tables.DepTable.Rows.Add(newRow);
             Mwin.InteractionService.Update(Mwin.Tables);

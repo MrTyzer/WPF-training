@@ -13,77 +13,77 @@ namespace WcfService
     // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы DbInteraction.svc или DbInteraction.svc.cs в обозревателе решений и начните отладку.
     public class DbInteraction : IDbInteraction
     {
+        public static SqlDataAdapter AdapterEmp;
+        public static SqlDataAdapter AdapterDep;
+        public static SqlConnection ConnectionEmp;
+        public static SqlConnection ConnectionDep;
 
         public DataTables Init()
         {
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Dz_7;Integrated Security=True";
-            SqlConnection connectionEmp = new SqlConnection(connectionString);
-            SqlDataAdapter adapterEmp = new SqlDataAdapter();
+            ConnectionEmp = new SqlConnection(connectionString);
+            AdapterEmp = new SqlDataAdapter();
             SqlCommand command = new SqlCommand(@"SELECT ID, Name, Age, Salary, Department FROM
-                                                Employee", connectionEmp);
-            adapterEmp.SelectCommand = command;
+                                                Employee", ConnectionEmp);
+            AdapterEmp.SelectCommand = command;
             //insert
             command = new SqlCommand(@"INSERT INTO Employee (Name, Age, Salary, Department)
-                                     VALUES (@Name, @Age, @Salary, @Department); SET @ID = @@IDENTITY;", connectionEmp);
+                                     VALUES (@Name, @Age, @Salary, @Department); SET @ID = @@IDENTITY;", ConnectionEmp);
             command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
             command.Parameters.Add("@Age", SqlDbType.NVarChar, -1, "Age");
             command.Parameters.Add("@Salary", SqlDbType.NVarChar, -1, "Salary");
             command.Parameters.Add("@Department", SqlDbType.NVarChar, -1, "Department");
             SqlParameter param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.Direction = ParameterDirection.Output;
-            adapterEmp.InsertCommand = command;
+            AdapterEmp.InsertCommand = command;
             // update
             command = new SqlCommand(@"UPDATE Employee SET Name = @Name, Age = @Age,
-                                     Salary = @Salary, Department = @Department WHERE ID = @ID", connectionEmp);
+                                     Salary = @Salary, Department = @Department WHERE ID = @ID", ConnectionEmp);
             command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
             command.Parameters.Add("@Age", SqlDbType.NVarChar, -1, "Age");
             command.Parameters.Add("@Salary", SqlDbType.NVarChar, -1, "Salary");
             command.Parameters.Add("@Department", SqlDbType.NVarChar, -1, "Department");
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.SourceVersion = DataRowVersion.Original;
-            adapterEmp.UpdateCommand = command;
+            AdapterEmp.UpdateCommand = command;
             //delete
-            command = new SqlCommand("DELETE FROM Employee WHERE ID = @ID", connectionEmp);
+            command = new SqlCommand("DELETE FROM Employee WHERE ID = @ID", ConnectionEmp);
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.SourceVersion = DataRowVersion.Original;
-            adapterEmp.DeleteCommand = command;
+            AdapterEmp.DeleteCommand = command;
             DataTable tableEmp = new DataTable();
             tableEmp.TableName = "Employee";
-            adapterEmp.Fill(tableEmp);
+            AdapterEmp.Fill(tableEmp);
 
-            SqlConnection connectionDep = new SqlConnection(connectionString);
-            SqlDataAdapter adapterDep = new SqlDataAdapter();
+            ConnectionDep = new SqlConnection(connectionString);
+            AdapterDep = new SqlDataAdapter();
             command = new SqlCommand(@"SELECT ID, Name FROM
-                                                Department", connectionDep);
-            adapterDep.SelectCommand = command;
+                                                Department", ConnectionDep);
+            AdapterDep.SelectCommand = command;
             //insert
             command = new SqlCommand(@"INSERT INTO Department (Name)
-                                     VALUES (@Name); SET @ID = @@IDENTITY;", connectionDep);
+                                     VALUES (@Name); SET @ID = @@IDENTITY;", ConnectionDep);
             command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.Direction = ParameterDirection.Output;
-            adapterDep.InsertCommand = command;
+            AdapterDep.InsertCommand = command;
             // update
             command = new SqlCommand(@"UPDATE Department SET Name = @Name, 
-                                     WHERE ID = @ID", connectionDep);
+                                     WHERE ID = @ID", ConnectionDep);
             command.Parameters.Add("@Name", SqlDbType.NVarChar, -1, "Name");
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.SourceVersion = DataRowVersion.Original;
-            adapterDep.UpdateCommand = command;
+            AdapterDep.UpdateCommand = command;
             //delete
-            command = new SqlCommand("DELETE FROM Department WHERE ID = @ID", connectionDep);
+            command = new SqlCommand("DELETE FROM Department WHERE ID = @ID", ConnectionDep);
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             param.SourceVersion = DataRowVersion.Original;
-            adapterDep.DeleteCommand = command;
+            AdapterDep.DeleteCommand = command;
             DataTable tableDep = new DataTable();
-            adapterDep.Fill(tableDep);
+            AdapterDep.Fill(tableDep);
             tableDep.TableName = "Department";
 
             DataTables res = new DataTables();
-            //res.ConnectionEmp = connectionEmp;
-            //res.ConnectionDep = connectionDep;
-            //res.AdapterEmp = adapterEmp;
-            //res.AdapterDep = adapterDep;
             res.EmpTable = tableEmp;
             res.DepTable = tableDep;
             return res;
@@ -91,8 +91,8 @@ namespace WcfService
 
         public void Update(DataTables tables)
         {
-            //tables.AdapterEmp.Update(tables.EmpTable);
-            //tables.AdapterDep.Update(tables.DepTable);
+            AdapterEmp.Update(tables.EmpTable);
+            AdapterDep.Update(tables.DepTable);
         }
     }
 }

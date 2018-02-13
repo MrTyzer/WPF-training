@@ -5,3 +5,10 @@ D:\Docs\Visual Studio 2017\Projects\WpfTraining\WcfService\obj\Debug\WcfService.
 D:\Docs\Visual Studio 2017\Projects\WpfTraining\WcfService\obj\Debug\WcfService.csproj.CoreCompileInputs.cache
 D:\Docs\Visual Studio 2017\Projects\WpfTraining\WcfService\obj\Debug\WcfService.dll
 D:\Docs\Visual Studio 2017\Projects\WpfTraining\WcfService\obj\Debug\WcfService.pdb
+C:\Users\Джепс\source\repos\WPF-training\WcfService\bin\WcfService.dll.config
+C:\Users\Джепс\source\repos\WPF-training\WcfService\bin\WcfService.dll
+C:\Users\Джепс\source\repos\WPF-training\WcfService\bin\WcfService.pdb
+C:\Users\Джепс\source\repos\WPF-training\WcfService\obj\Debug\WcfService.csprojResolveAssemblyReference.cache
+C:\Users\Джепс\source\repos\WPF-training\WcfService\obj\Debug\WcfService.csproj.CoreCompileInputs.cache
+C:\Users\Джепс\source\repos\WPF-training\WcfService\obj\Debug\WcfService.dll
+C:\Users\Джепс\source\repos\WPF-training\WcfService\obj\Debug\WcfService.pdb
